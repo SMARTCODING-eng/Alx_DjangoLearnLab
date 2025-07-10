@@ -7,7 +7,7 @@ from .models import Book
 class BookAdmin(admin.ModelAdmin):
     list_display = ('title', 'author', 'published_year')
     search_fields = ('title', 'author')
-    list_filter = ('author', 'published_year')
+    list_filter = ('published_year')
     ordering = ('title',)
     
 
