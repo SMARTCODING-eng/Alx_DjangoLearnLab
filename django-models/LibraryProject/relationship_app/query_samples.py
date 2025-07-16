@@ -8,11 +8,14 @@ def query_script():
         print(f"Book Title: {book.title}")
 
     library1 = Library.objects.get(name="The Library")
-    books_in_library = Book.objects.filter(library=library1)
-    for book in books_in_library:
-        print(f"Book in Library: {book.title}")
+    books_in_library = library1.books.all()
+    for books in books_in_library:
+        print(f"{book.title} by {book.author.name}")
 
     librarian1 = Librarian.objects.get(library=library1)
     print(f"Librarian for {library1.name}: {librarian1.name}")
+
+
+    
 
    
