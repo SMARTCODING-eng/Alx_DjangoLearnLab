@@ -1,9 +1,9 @@
 # query_samples.py
 from models import Author, Book, Library, Librarian
 
-def query_script(library_name):
-    author1 = Author.objects.get(name="Johnson")
-    books_by_author = Book.objects.filter(author=author1)
+def query_script(author_name, library_name):
+    author = Author.objects.get(name=author_name)
+    books_by_author = Book.objects.filter(author=author)
     for book in books_by_author:
         print(f"Book Title: {book.title}")
 
