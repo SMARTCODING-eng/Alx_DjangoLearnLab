@@ -6,7 +6,7 @@ from .models import Book
 
 
 
-def books_list(request):
+def list_books(request):
     books = Book.objects.all().select_related('author')
     context = {
         'books': books
