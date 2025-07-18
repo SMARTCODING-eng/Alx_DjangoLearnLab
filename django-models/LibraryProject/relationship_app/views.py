@@ -2,8 +2,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic.detail import DetailView
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
-from django.contrib.auth.decorators import login_required, user_passes_test, permission_required
-from django import forms
+from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth.decorators import permission_required
 from .models import Library
 from .models import Book, Author
 from .forms import UserRegistrationForm
@@ -112,7 +112,7 @@ def add_book(request):
 
 
 @login_required
-@permission_required('relationship_app.can_edit_book', raise_exception=True)
+@permission_required('relationship_app.can_change_book', raise_exception=True)
 def edit_book(request, pk):
     book = get_object_or_404(Book, pk=pk)
     if request.method == 'POST':
@@ -127,7 +127,7 @@ def edit_book(request, pk):
 
 
 @login_required
-@permission_required('relationship_app/can_delete_book', raise_exception=True)
+@permission_required('relationship_app.can_delete_book', raise_exception=True)
 def delete_book(request, pk):
     book = get_object_or_404(Book, pk=pk)
     if request.method == 'POST':
