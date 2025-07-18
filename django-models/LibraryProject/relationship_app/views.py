@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from .models import Library
 from .models import Book
 from .forms import UserRegistrationForm
+from django.contrib.auth.forms import UserCreationForm
 
 
 
