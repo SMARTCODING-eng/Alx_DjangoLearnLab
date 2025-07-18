@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Member Dashboard</title>
+</head>
+<body>
+    <nav>
+        {% if user.is_authenticated %}
+            <p>Welcome, Member {{ user.username }}! <a href="{% url 'relationship_app:logout' %}">Log Out</a></p>
+        {% else %}
+            <p><a href="{% url 'relationship_app:login' %}">Log In</a> | <a href="{% url 'relationship_app:register' %}">Register</a></p>
+        {% endif %}
+    </nav>
+    <h1>Member Dashboard</h1>
+    <p>This content is only visible to users with the 'Member' role.</p>
+    <ul>
+        <li>Browse available books</li>
+        <li>View loan history</li>
+        <li>Update profile</li>
+    </ul>
+    <p><a href="{% url 'relationship_app:list_books' %}">Back to Books</a></p>
+</body>
+</html>

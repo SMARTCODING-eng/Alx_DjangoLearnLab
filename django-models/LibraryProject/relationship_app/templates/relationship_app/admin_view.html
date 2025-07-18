@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="eng">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+</head>
+<body>
+    <nav>
+        {% if user.is_authenticated %}
+            <p>Welcome, Admin {{user.username }}! <a href="{% url 'relationship_app:logout' %}">Log Out</a></p>
+        {% else %}
+            <p><a href="{% url 'relationship_app:login' %}"></a> | <a href="{% url 'relatioship_app:register' %}">Register</a></p>
+        {% endif %}
+    </nav>
+    <h1>Admin Dashboard</h1>
+    <p>This content is only visible to user with the 'Admin' role.</p>
+    <ul>
+        <li>Manage users</li>
+        <li>View system logs</li>
+        <li>Access all library data</li>
+    </ul>
+    <p><a href="{% url 'relationship_app:list_books' %}">Back to Book</a></p>
+</body>
+</html>

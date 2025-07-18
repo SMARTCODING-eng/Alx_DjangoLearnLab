@@ -1,19 +1,20 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic.detail import DetailView
 from django.contrib.auth import login, logout, authenticate
-from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth.decorators import login_required, user_passes_test
 from .models import Library
 from .models import Book
 from .forms import UserRegistrationForm
-from django.contrib.auth.forms import UserCreationForm
 
+def is_admin(user):
+    return user.is_authenticated and hasattr(user, 'userprofile') and user.userprofile.role == 'Admin'
 
+def is_librarian(user):
+    return user.is_authenticated and hasattr(user, 'userprofile') and user.userprofile.role == 'Librarian'
 
-
-
-
-
+def is_member(user):
+    return user.is_authenticated and hasattr(user, 'userprofile') and user.userprofile.role == 'Member'
 
 def list_books(request):
     books = Book.objects.all().select_related('author')
@@ -70,3 +71,17 @@ def user_logout(request):
     return redirect('relationship_app:list_books')
 
 
+@login_required
+@user_passes_test(is_admin, login_url='/relationship_app/login/')
+def admin_view(request):
+    return render(request, 'relationship_app/admin_view.html', {'user': request.user})
+
+@login_required
+@user_passes_test(is_librarian, login_url='relationship_app/login/')
+def librarian_view(request):
+    return render(request, 'relationship_app/librarian_view.html', {'user': request.user})
+
+@login_required
+@user_passes_test(is_member, login_url='relationship_app/login/')
+def member_view(request):
+    return render(request, 'relationship_app/member_view.html', {'user': request.user})
