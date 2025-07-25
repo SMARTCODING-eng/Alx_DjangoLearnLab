@@ -131,7 +131,4 @@ LOGOUT_REDIRECT_URL = '/library/books/'
 
 LOGIN_URL = '/library/login/'
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-AUTH_USER_MODEL = 'relationship_app.CustomUser'
+AUTH_USER_MODEL = 'bookshelf.CustomUser'
