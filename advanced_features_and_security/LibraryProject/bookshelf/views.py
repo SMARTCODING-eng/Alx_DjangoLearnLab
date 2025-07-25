@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import permission_required, login_required
 from django.contrib import messages
 from django.utils.html import escape
 from .models import Book
+from forms import BookForm
 
 
 @permission_required('app_name.can_view', raise_exception=True)
@@ -12,16 +13,18 @@ def book_detail_view(request, book_id):
     Views to display book detals.
     Requires 'can_view' permission.
     """
-    book = get_object_or_404(Book, pk=book_id)
-    context = {
-        'book':book,
-        'can_edit': request.user.has_perm('bookshelf.can_edit'),
-        'can_delete': request.user.has_perm('bookshelf.can_delete'),
-    }
-    return render(request, 'books/book_details.html', context)
-
-   
-
+    if request.method == 'POST':
+        if request.method == 'POST':
+            form = BookForm(request.POST)
+            if form.is_valid():
+                book = form.save()
+                messages.success(request, f'Book "{book.title}" created successfully!')
+                return redirect('book_detail', book_id=book.id)
+    else:
+        form = BookForm()
+    
+    return render(request, 'books/book_form.html', {'form': form, 'action': 'Create'})
+    
 
 @permission_required('app_name.can_create', raise_exception=True)
 def book_create_view(request):
