@@ -28,3 +28,23 @@
 ## Password Security
 - Strong password validators
 - Modern password hashing (Argon2)
+
+## Security Configuration
+
+### HTTPS Enforcement
+- All HTTP requests redirected to HTTPS
+- HSTS enabled with 1-year duration including subdomains
+- Secure cookies (session and CSRF)
+
+### Security Headers
+- X-Frame-Options: DENY
+- X-Content-Type-Options: nosniff
+- X-XSS-Protection: 1; mode=block
+- Content-Security-Policy: Strict policy implemented
+- Referrer-Policy: same-origin
+
+### SSL Configuration
+- TLS 1.2/1.3 only
+- Modern cipher suites
+- OCSP stapling enabled
+- Certificate auto-renewal configured
