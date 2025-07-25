@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.utils.html import escape
 from .models import Book
 from forms import BookForm
-
+from .forms import ExampleForm
 
 @permission_required('app_name.can_view', raise_exception=True)
 @login_required
