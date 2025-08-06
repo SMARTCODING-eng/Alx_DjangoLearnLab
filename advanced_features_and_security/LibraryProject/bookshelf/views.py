@@ -3,14 +3,14 @@ from django.contrib.auth.decorators import permission_required, login_required
 from django.contrib import messages
 from django.utils.html import escape
 from .models import Book
-from forms import BookForm
+from .forms import BookForm
 from .forms import ExampleForm
 
 @permission_required('app_name.can_view', raise_exception=True)
 @login_required
 def book_detail_view(request, book_id):
     """
-    Views to display book detals.
+    Views to display book detal`s.
     Requires 'can_view' permission.
     """
     if request.method == 'POST':
