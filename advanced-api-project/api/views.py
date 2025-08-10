@@ -25,6 +25,7 @@ class DetailView(generics.RetrieveAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
+    filter_by = filters.OrderingFilter
 
 
 class CreateView(generics.CreateAPIView):
