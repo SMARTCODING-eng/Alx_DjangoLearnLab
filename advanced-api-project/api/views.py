@@ -27,6 +27,7 @@ class DetailView(generics.RetrieveAPIView):
     permission_classes = [IsAuthenticatedOrReadOnly]
     filter_by = filters.OrderingFilter
     search_by = filters.SearchFilter
+    search_fields = ['title', 'author']
 
 
 class CreateView(generics.CreateAPIView):
