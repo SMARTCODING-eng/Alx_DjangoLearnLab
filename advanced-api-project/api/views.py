@@ -26,6 +26,7 @@ class DetailView(generics.RetrieveAPIView):
     serializer_class = BookSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
     filter_by = filters.OrderingFilter
+    search_by = filters.SearchFilter
 
 
 class CreateView(generics.CreateAPIView):
