@@ -22,3 +22,14 @@ A view that Handles The Update of book instances
 ## class DeleteView(generics.DestroyAPIView):
 A view that handle the deletion of a book instance
 by an authenticated user
+
+
+## Detaliled explanation off the test_view
+
+### BookViewSet(TestCase)
+**This is a class that inherit from Django TestCase it lists all the available books and have correct status code**
+
+##  BookDetailViewSet(TestCase)
+
+
+## BookCreateViewSet(TestCase)
