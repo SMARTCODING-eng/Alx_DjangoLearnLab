@@ -4,7 +4,7 @@ from .models import Book
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 from .serializers import BookSerializer
 from datetime import datetime
-from django_filters import rest_framework
+from rest_framework import filters
  
 
 class ListView(generics.ListAPIView):
@@ -25,9 +25,9 @@ class DetailView(generics.RetrieveAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
-    filter_by = filters.OrderingFilter
-    search_by = filters.SearchFilter
+    filter_backends = [filters.OrderingFilter, filters.SearchFilter]
     search_fields = ['title', 'author']
+    ordering_fields = ['publication_year', 'title']
 
 
 class CreateView(generics.CreateAPIView):
@@ -69,7 +69,3 @@ class DeleteView(generics.DestroyAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     permission_classes = [IsAuthenticated]
-
-    def perform_destroy(self, serializer):
-        serializer.instance.delete()
-        serializer.save()
