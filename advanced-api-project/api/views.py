@@ -1,10 +1,12 @@
+from warnings import filters
 from django.shortcuts import render
 from rest_framework import generics, status
 from .models import Book
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 from .serializers import BookSerializer
 from datetime import datetime
-from rest_framework import filters
+# from rest_framework import filters
+from django_filters import rest_framework
  
 
 class ListView(generics.ListAPIView):
