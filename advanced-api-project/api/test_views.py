@@ -15,6 +15,8 @@ class BookViewSet(APITestCase):
             author="Tunde",
             publication_year=2025
         )
+        self.client.login(username='smartuser', password='password12')
+        
         self.create_url = reverse('book-list')
         self.detail_url = reverse('book-detail', args=[self.book.id])
         self.update_url = reverse('book-update', args=[self.book.id])
