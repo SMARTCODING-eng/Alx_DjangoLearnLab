@@ -1,4 +1,4 @@
-from django.test import TestCase
+from rest_framework.test import APITestCase
 from django.urls import status
 from . models import Book
 from rest_framework.test import APIClient
@@ -8,23 +8,27 @@ from django.contrib.auth import get_user_model
 
 User = get_user_model()
 
-class BookViewSet(TestCase):
+class BookViewSet(APITestCase):
     def setUp(self):
+        self.user =User.objects.create_user(username='smartuser', password='password12')
         Book.objects.create(
             title="The Good day",
             author="Tunde",
             publication_year=2025
         )
-        self.url = reverse('book-list')
-        self.client = APIClient()
+        self.create_url = reverse('book-list')
+        self.detail_url = reverse('book-detail', args=[self.book.id])
+        self.update_url = reverse('book-update', args=[self.book.id])
+        self.delete_url = reverse('book-delete', args=[self.book.id])
+        
         
     def test_list_books(self):
-        response = self.client.get(self.url)
-        self.assertEqual(response.status_code, status.HTTP_200_ok)
+        response = self.client.get(self.create_url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data), 1)
 
     
-class BookDetailViewSet(TestCase):
+class BookDetailViewSet(APITestCase):
     def setUp(self):
         self.book = Book.objects.create(
             title="The Good day",
@@ -46,7 +50,7 @@ class BookDetailViewSet(TestCase):
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
     
-class BookCreateViewSet(TestCase):
+class BookCreateViewSet(APITestCase):
     def setUp(self):
         self.user = User.objects.create_user(username='smartuser', password='password12')
         self.url = reverse('book-list')
