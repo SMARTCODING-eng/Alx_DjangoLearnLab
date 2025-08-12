@@ -1,7 +1,6 @@
 from rest_framework.test import APITestCase
-from django.urls import status
 from . models import Book
-from rest_framework.test import APIClient
+from rest_framework import status
 from django.urls import reverse
 from django.contrib.auth import get_user_model
 
