@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .forms import CustomUserCreationForm, CustomUserAuthenticationForm
 from django.contrib.auth import login, logout
+from django.contrib.auth.decorators import login_required
 
 
 def register_view(request):
@@ -14,6 +15,10 @@ def register_view(request):
     else:
         form = CustomUserCreationForm()
     return render(request, 'blog/register.html', {'form': form})
+
+@login_required
+def profile_view(request):
+        return render(request, 'blog/profile.html', {'user': request.user})
 
 
 def login_view(request):
