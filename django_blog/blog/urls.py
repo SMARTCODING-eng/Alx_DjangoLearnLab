@@ -2,11 +2,11 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('/posts/', views.ListView.as_view(), name='post-list'),
-    path('posts/<int:pk>/', views.DetailView.as_view(), name='post-detail'),
-    path('posts/new/', views.CreateView.as_view(), name='post-create'),
-    path('posts/<int:pk>/edit/', views.UpdateView.as_view(), name='post-edit'),
-    path('posts/<int:pk>/delete/', views.DeleteView.as_view(), name='post-delete'),
+    path('/post/', views.ListView.as_view(), name='post-list'),
+    path('post/<int:pk>/', views.DetailView.as_view(), name='post-detail'),
+    path('post/new/', views.CreateView.as_view(), name='post-create'),
+    path('post/<int:pk>/update/', views.UpdateView.as_view(), name='post-update'),
+    path('post/<int:pk>/delete/', views.DeleteView.as_view(), name='post-delete'),
     # Authentication and registration URLS
     path('register/', views.register_view, name='register'),
     path('login/', views.login_view, name='login'),
