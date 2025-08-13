@@ -16,9 +16,18 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.http import HttpResponse
+from django.shortcuts import redirect
+
+# def redirect_to_blog(request):
+#     return redirect("/blog")
+
+def home(request):
+    return HttpResponse("<h1>Welcome To My Blog!</h1>")
 
 urlpatterns = [
+    path("", home),
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('blog', include('blog.urls')),
+    path('blog/', include('blog.urls')),
 ]
