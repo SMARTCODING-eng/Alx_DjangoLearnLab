@@ -9,9 +9,9 @@ urlpatterns = [
     path('post/<int:pk>/delete/', views.DeleteView.as_view(), name='post-delete'),
 
     # Comments URLs
-    path('post/<int:post_id>/comments/new/', views.CommentCreateView.as_view(), name='post-comment-create'),
-    path('post/<int:post_id>/comments/<int:comment_id>/edit/', views.CommentUpdateView.as_view(), name='post-comment-update'),
-    path('post/<int:post_id>/comments/<int:comment_id>/delete/', views.CommentDeleteView.as_view(), name='post-comment-delete'),
+    path('comment/<int:post_id>/new/', views.CommentCreateView.as_view(), name='post-comment-create'),
+    path('comment/<int:post_id>/update/', views.CommentUpdateView.as_view(), name='post-comment-update'),
+    path('comment/<int:post_id>/delete/', views.CommentDeleteView.as_view(), name='post-comment-delete'),
 
     # Authentication and registration URLs
     path('register/', views.register_view, name='register'),
