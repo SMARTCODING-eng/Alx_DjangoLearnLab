@@ -16,6 +16,7 @@ from .models import Post, Comment
 from taggit.models import Tag
 
 
+
 def register_view(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
