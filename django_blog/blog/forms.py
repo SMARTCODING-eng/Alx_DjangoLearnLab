@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from .models import CustomUser, Post
+from .models import CustomUser, Post, Comment
  
 
 
@@ -27,3 +27,15 @@ class PostForm(forms.ModelForm):
         if commit:
             post.save()
         return post
+    
+class CommentForm(forms.ModelForm):
+    """Form for creating and updating comments"""
+    class Meta:
+        model = Comment
+        fields = ['content']
+
+    def save(self, commit=True):
+        comment = self.instance()
+        if commit:
+            comment.save()
+        return comment
