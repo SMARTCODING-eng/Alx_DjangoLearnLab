@@ -20,7 +20,7 @@ class PostForm(forms.ModelForm):
     """Form for creating and Updating new post and automatically set author based on logged-in user"""
     class Meta:
         model = Post
-        fields = ['title', 'content','tags']
+        fields = ['title', 'content', 'tags']
 
     def save(self, commit=True):
         post = self.instance()

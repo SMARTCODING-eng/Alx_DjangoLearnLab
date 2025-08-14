@@ -7,6 +7,8 @@ urlpatterns = [
     path('post/new/', views.CreateView.as_view(), name='post-create'),
     path('post/<int:pk>/update/', views.UpdateView.as_view(), name='post-update'),
     path('post/<int:pk>/delete/', views.DeleteView.as_view(), name='post-delete'),
+    path('tags/<slug:tag_slug>/', views.TaggedPostListView.as_view(), name='posts-by-tag'),
+    path('search/', views.search_view, name='search'),
 
     # Comments URLs
     path('post/<int:pk>/comments/new/', views.CommentCreateView.as_view(), name='post-comment-create'),

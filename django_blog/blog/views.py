@@ -4,6 +4,7 @@ from .forms import CustomUserCreationForm, CustomUserAuthenticationForm
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from .forms import PostForm
+from django.db.models import Q
 from django.views.generic import (
     ListView,
     DetailView,
@@ -12,6 +13,7 @@ from django.views.generic import (
     DeleteView
 )
 from .models import Post, Comment
+from taggit.models import Tag
 
 
 def register_view(request):
@@ -145,3 +147,32 @@ class CommentDeleteView(DeleteView, LoginRequiredMixin, UserPassesTestMixin):
     
     def get_success_url(self):
         return self.object.post.get_absolute_url()
+
+def search_view(request):
+    query = request.GET.get('q')
+    results = Post.objects.none()
+
+    if query:
+        results = Post.objects.filter(
+            Q(title__icontains=query) |
+            Q(content__icontains=query) |
+            Q(tags__name__icontains=query)
+        ).distinct()
+
+    return render(request, 'blog/search_results.html', {'results': results, 'query': query})
+
+
+class TaggedPostListView(ListView):
+    """View to list all posts with a specific tag"""
+    model = Post
+    template_name = 'blog/post_list.html'
+    context_object_name = 'posts'
+
+    def get_queryset(self):
+        tag_slug = self.kwargs['tag_slug']
+        return Post.objects.filter(tags__slug=tag_slug).order_by('-published_date')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['tag'] = get_object_or_404(Tag, slug=self.kwargs['tag_slug'])
+        return context
