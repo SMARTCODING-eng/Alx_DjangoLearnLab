@@ -1,13 +1,14 @@
 from django.urls import path
 from . import views
 
+
 urlpatterns = [
     path('/post/', views.ListView.as_view(), name='post-list'),
     path('post/<int:pk>/', views.DetailView.as_view(), name='post-detail'),
     path('post/new/', views.CreateView.as_view(), name='post-create'),
     path('post/<int:pk>/update/', views.UpdateView.as_view(), name='post-update'),
     path('post/<int:pk>/delete/', views.DeleteView.as_view(), name='post-delete'),
-    path('tags/<slug:tag_slug>/', views.TaggedPostListView.as_view(), name='posts-by-tag'),
+    path('tags/<slug:tag_slug>/', views.PostByTagListView.as_view(), name='posts-by-tag'),
     path('search/', views.search_view, name='search'),
 
     # Comments URLs

@@ -163,7 +163,7 @@ def search_view(request):
     return render(request, 'blog/search_results.html', {'results': results, 'query': query})
 
 
-class TaggedPostListView(ListView):
+class PostByTagListView(ListView):
     """View to list all posts with a specific tag"""
     model = Post
     template_name = 'blog/post_list.html'
