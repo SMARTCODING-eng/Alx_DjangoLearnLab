@@ -3,6 +3,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .forms import CustomUserCreationForm, CustomUserAuthenticationForm
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
+from .forms import PostForm
 from django.views.generic import (
     ListView,
     DetailView,
@@ -69,6 +70,7 @@ class DetailView(DetailView):
 class CreateView(LoginRequiredMixin, CreateView):
     """View to allow authenticated users to create new posts"""
     model = Post
+    form_class =PostForm
     template_name = 'blog/post_create.html'
     fields = ['title', 'content']
 
@@ -81,8 +83,8 @@ class CreateView(LoginRequiredMixin, CreateView):
 class UpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     """View to allow authenticated users to update their posts"""
     model = Post
+    form_class = PostForm
     template_name = 'blog/post_edit.html'
-    fields = ['title', 'content']
 
     def test_func(self):
         post = self.get_object()
