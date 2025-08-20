@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
 from rest_framework.authtoken.models import Token
+from .models import Userprofile
 
 
 class UserRegistrationSerializer(serializers.ModelSerializer):
@@ -8,7 +9,7 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
 
 
     class Meta:
-        model = User
+        model = Userprofile
         fields = ['username', 'email', 'password', 'password2']
         extra_kwargs = {
             'password': {'write_only': True},
