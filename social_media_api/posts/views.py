@@ -11,6 +11,9 @@ class PostViewSet(viewsets.ModelViewSet):
     serializer_class = PostSerializer
     permission_classes = [IsAuthenticated, IsAuthenticatedOrReadOnly]
 
+    filterset_fields = ['title', 'content']
+    searchset_fields = ['author', 'title', 'content']
+
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
 
