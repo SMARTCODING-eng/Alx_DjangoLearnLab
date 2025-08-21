@@ -5,7 +5,7 @@ from .serializers import UserRegistrationSerializer
 from rest_framework.views import APIView
 from django.contrib.auth import authenticate, get_user_model
 from rest_framework.authtoken.models import Token
-from rest_framework.permissions import IsAuthenticated
+from rest_framework import permissions
 
 
 class UserRegistrationView(generics.CreateAPIView):
@@ -38,7 +38,7 @@ class UserLoginView(APIView):
         else:
             return Response({"error": "Invalid Credentials"}, status=status.HTTP_400_BAD_REQUEST)
 
-class UserProfileView(APIView):
+class UserProfileView(generics.GenericAPIView):
     def get(self, request, *args, **kwargs):
         user = request.user
         if user.is_authenticated:
@@ -51,12 +51,13 @@ class UserProfileView(APIView):
         
 
 class FollowUserView(APIView):
-    permission_classes = [IsAuthenticated]
-
+    permission_classes = [permissions.IsAuthenticated]
+    
     def post(self, request, username):
+        CustomUser = get_user_model()
         try:
-            user_to_follow = get_user_model().objects.get(username=username)
-        except get_user_model().DoesNotExist:
+            user_to_follow = CustomUser.objects.get(username=username)
+        except CustomUser.DoesNotExist:
             return Response({"error": "User not found."}, status=status.HTTP_404_NOT_FOUND)
         
         if request.user.following.add(user_to_follow):
@@ -66,9 +67,10 @@ class FollowUserView(APIView):
         return Response({"Message": f"You are now folloeing {username}."}, status=status.HTTP_200_OK)
     
     def unfollow_user(self, request, username):
+        CustomUser = get_user_model()
         try:
-            user_to_unfollow = get_user_model.objects.get(username=username)
-        except get_user_model().DoesNotExist:
+            user_to_unfollow = CustomUser.objects.get(username=username)
+        except CustomUser.DoesNotExist:
             return Response({"error": "User not found."}, status=status.HTTP_404_NOT_FOUND)
         
         if not request.user.following.filter(username=username).exists():

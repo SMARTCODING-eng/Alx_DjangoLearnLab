@@ -3,9 +3,6 @@ from .views import PostViewSet, CommentViewSet, UserFeedView
 
 
 
-
-
-
 urlpatterns = [
     path('posts/', PostViewSet.as_view({'get': 'list', 'post': 'create'})),
     path('posts/<int:pk>/', PostViewSet.as_view({'get': 'retrieve', 'put': 'update', 'delete': 'destroy'})),
