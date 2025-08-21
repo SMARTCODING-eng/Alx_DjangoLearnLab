@@ -1,9 +1,10 @@
 from django.db import models
 from accounts.models import Userprofile
 
+user = Userprofile
 
 class Post(models.Model):
-    author = models.ForeignKey(Userprofile, on_delete=models.CASCADE, related_name='posts')
+    author = models.ForeignKey(user, on_delete=models.CASCADE, related_name='posts')
     title = models.CharField(max_length=100)
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
@@ -12,14 +13,14 @@ class Post(models.Model):
 
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
-    author = models.ForeignKey(Userprofile, on_delete=models.CASCADE)
+    author = models.ForeignKey(user, on_delete=models.CASCADE)
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField()
 
 class Like(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
-    author = models.ForeignKey(Userprofile, on_delete=models.CASCADE)
+    author = models.ForeignKey(user, on_delete=models.CASCADE)
 
     class Meta:
         unique_together = (('post', 'author'),)
