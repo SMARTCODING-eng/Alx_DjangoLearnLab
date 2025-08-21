@@ -56,7 +56,7 @@ class FollowUserView(APIView):
     def post(self, request, username):
         CustomUser = get_user_model()
         try:
-            user_to_follow = CustomUser.objects.get(username=username)
+            user_to_follow = CustomUser.objects.all()
         except CustomUser.DoesNotExist:
             return Response({"error": "User not found."}, status=status.HTTP_404_NOT_FOUND)
         
@@ -69,7 +69,7 @@ class FollowUserView(APIView):
     def unfollow_user(self, request, username):
         CustomUser = get_user_model()
         try:
-            user_to_unfollow = CustomUser.objects.get(username=username)
+            user_to_unfollow = CustomUser.objects.all()
         except CustomUser.DoesNotExist:
             return Response({"error": "User not found."}, status=status.HTTP_404_NOT_FOUND)
         
@@ -78,5 +78,4 @@ class FollowUserView(APIView):
         
         request.user.following.remove(user_to_unfollow)
         return Response({"message": f"You have unfollowed {username}."})
-        
         
