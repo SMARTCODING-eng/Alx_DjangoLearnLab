@@ -9,6 +9,6 @@ urlpatterns = [
     path('comments/', CommentViewSet.as_view({'get': 'list', 'post': 'create'})),
     path('comments/<int:pk>/', CommentViewSet.as_view({'get': 'retrieve', 'put': 'update', 'delete': 'destroy'})),
     path('feed/', UserFeedView.as_view(), name='user_feed'),
-    path('likes/<int:pk>/', LikeViewSet.as_view({'get': 'list', 'post': 'create'})),
-    path('unlikes/<int:pk>/', LikeViewSet.as_view({'get': 'retrieve', 'put': 'update', 'delete': 'destroy'})),
+    path('likes/<int:pk>/like/', LikeViewSet.as_view({'get': 'list', 'post': 'create'})),
+    path('unlikes/<int:pk>/unlike/', LikeViewSet.as_view({'get': 'retrieve', 'put': 'update', 'delete': 'destroy'})),
 ]
