@@ -1,0 +1,11 @@
+# python temp files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+
+# Django-specific files
+.sqlite3
+.env
+/media
