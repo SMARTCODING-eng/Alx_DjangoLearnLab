@@ -6,7 +6,11 @@ from rest_framework.views import APIView
 from django.contrib.auth import authenticate, get_user_model
 from rest_framework.authtoken.models import Token
 from rest_framework import permissions
+from rest_framework.decorators import api_view
 
+@api_view(['GET'])
+def good_day(request):
+    return Response({"message": "Good day Everyone!"}, status=status.HTTP_200_OK)
 
 class UserRegistrationView(generics.CreateAPIView):
     serializer_class = UserRegistrationSerializer
